@@ -1,6 +1,6 @@
-﻿namespace EmployeeMaintenance.Domain.Entities
+﻿namespace EmployeeMaintenance.Application.DTOs
 {
-    public class Department
+    public class DepartmentDto
     {
         public int Id { get; set; }
         public required string Name { get; set; }

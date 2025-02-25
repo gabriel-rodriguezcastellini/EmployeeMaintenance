@@ -1,9 +1,15 @@
+using EmployeeMaintenance.Application.Contracts;
+using EmployeeMaintenance.Application.Handlers;
+using EmployeeMaintenance.Infrastructure.Common;
 using EmployeeMaintenance.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+builder.Services.AddMediatR(typeof(CreateEmployeeHandler).Assembly);
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Add services to the container.
@@ -11,14 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.MapOpenApi();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
+    _ = app.MapOpenApi();
 }
 
 app.UseHttpsRedirection();
