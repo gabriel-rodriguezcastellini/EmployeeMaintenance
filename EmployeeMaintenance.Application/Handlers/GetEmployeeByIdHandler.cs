@@ -18,6 +18,7 @@ namespace EmployeeMaintenance.Application.Handlers
                     FirstName = employee.FirstName,
                     LastName = employee.LastName,
                     HireDate = employee.HireDate,
+                    DepartmentId = employee.DepartmentId,
                     DepartmentName = employee.Department.Name,
                     Phone = employee.Phone,
                     Address = employee.Address
